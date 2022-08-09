@@ -6,6 +6,7 @@ import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 import {
   DropIcon,
   FullScren,
+  Logo,
   Logo1,
   SearchIcon,
   Text,
@@ -55,7 +56,9 @@ const Navbar = () => {
                       alt="Workflow"
                     />
                     <Link to="/">
-                      <Logo1 />
+                      <div className="w-[80px]">
+                        <Logo />
+                      </div>
                     </Link>
                   </div>
                   {/* <div className="hidden sm:block sm:ml-6 justify-end">
