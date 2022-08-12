@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import "./other.scss";
 
 const Other = () => {
@@ -51,10 +52,161 @@ const Other = () => {
   const [fullinfoRus, setFullInfoRus] = useState([]);
   const [fullinfoAra, setFullInfoAra] = useState([]);
 
+  const [image1, setImage1] = useState({ preview: "", data: "" });
+  const [image2, setImage2] = useState({ preview: "", data: "" });
+  const [image3, setImage3] = useState({ preview: "", data: "" });
+
+  const PathPayme = () => {
+    const axios = require("axios");
+
+    const formData = new FormData();
+    formData.append("name_uzb", nameUzb);
+    formData.append("name_eng", nameEng);
+    formData.append("name_rus", nameRus);
+    formData.append("name_arab", nameAra);
+
+    formData.append("direction_of_travel_uzb", travelUzb);
+    formData.append("direction_of_travel_eng", travelEng);
+    formData.append("direction_of_travel_rus", travelRus);
+    formData.append("direction_of_travel_arab", travelAra);
+
+    formData.append("duration_uzb", durationUzb);
+    formData.append("duration_eng", durationEng);
+    formData.append("duration_rus", durationRus);
+    formData.append("duration_arab", durationAra);
+
+    formData.append("price_of_1person", oneman);
+    formData.append("price_of_10person", tenman);
+    formData.append("price_of_20person", fortyfiveman);
+    formData.append("video", videourl);
+    formData.append("location", locationurl);
+
+    formData.append("privileges_uzb", privilegesUzb);
+    formData.append("privileges_eng", privilegesEng);
+    formData.append("privileges_rus", privilegesRus);
+    formData.append("privileges_arab", privilegesAra);
+
+    formData.append("travel_plan_uzb", planUzb);
+    formData.append("travel_plan_eng", planEng);
+    formData.append("travel_plan_rus", planRus);
+    formData.append("travel_plan_arab", planAra);
+
+    formData.append("included_price_uzb", includedUzb);
+    formData.append("included_price_eng", includedEng);
+    formData.append("included_price_rus", includedRus);
+    formData.append("included_price_arab", includedAra);
+
+    formData.append("not_included_price_uzb", notincludedUzb);
+    formData.append("not_included_price_eng", notincludedEng);
+    formData.append("not_included_price_rus", notincludedRus);
+    formData.append("not_included_price_arab", notincludedAra);
+
+    formData.append("description_uzb", fullinfoUzb);
+    formData.append("description_eng", fullinfoEng);
+    formData.append("description_rus", fullinfoRus);
+    formData.append("description_arab", fullinfoAra);
+
+    formData.append("image1", image1.data);
+    formData.append("image2", image2.data);
+    formData.append("image3", image3.data);
+
+    // const config = {
+    //   method: "post",
+    //   url: "http://46.101.191.246:5000/api/places",
+    //   // headers: {
+    //   //   "Content-Type": "application/json",
+    //   // },
+    //   body: formData,
+    // };
+
+    axios.post("http://46.101.191.246:5000/api/places", formData).then(
+      (response) => {
+        console.log(JSON.stringify(response.data));
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+    setNameUzb("");
+    setNameEng("");
+    setNameRus("");
+    setNameAra("");
+    setTravelUzb("");
+    setTravelEng("");
+    setTravelRus("");
+    setTravelAra("");
+    setDurationUzb("");
+    setDurationEng("");
+    setDurationRus("");
+    setDurationAra("");
+    setOneMan("");
+    setTenMan("");
+    setFortyFiveMan("");
+    setVidoUrl("");
+    setLocationUrl("");
+    setPrivilegeUzb("");
+    setPrivilegeEng("");
+    setPrivilegeRus("");
+    setPrivilegeAra("");
+    setPlanUzb("");
+    setPlanEng("");
+    setPlanRus("");
+    setPlanAra("");
+    setIncludedUzb("");
+    setIncludedEng("");
+    setIncludedRus("");
+    setIncludedAra("");
+    setNotIncludedUzb("");
+    setNotIncludedEng("");
+    setNotIncludedRus("");
+    setNotIncludedAra("");
+    setFullInfoUzb("");
+    setFullInfoEng("");
+    setFullInfoRus("");
+    setFullInfoAra("");
+    setImage1(null);
+    setImage2(null);
+    setImage3(null);
+  };
+
+  const handleFileChange = (e) => {
+    const img = {
+      preview: URL.createObjectURL(e.target.files[0]),
+      data: e.target.files[0],
+    };
+    setImage1(img);
+  };
+
+  const handleFileChange2 = (e) => {
+    const img = {
+      preview: URL.createObjectURL(e.target.files[0]),
+      data: e.target.files[0],
+    };
+    setImage2(img);
+  };
+
+  const handleFileChange3 = (e) => {
+    const img = {
+      preview: URL.createObjectURL(e.target.files[0]),
+      data: e.target.files[0],
+    };
+    setImage3(img);
+  };
+
+  // const imageHandler = (e) => {
+  //   const reader = new FileReader();
+  //   reader.onload = () => {
+  //     if (reader.readyState === 2) {
+  //       setImage1(reader.result);
+  //     }
+  //   };
+  //   reader.readAsDataURL(e.target.files[0]);
+  // };
+
   return (
     <div className="other bg-white w-[100%] ">
       <div className="umrah-content p-5">
-        <h1 className="text-xl mb-5">Umra Ziyorati</h1>
+        <h1 className="text-xl mb-5">Boshqa Ziyoratlar</h1>
         {/* Name */}
         <div className="flex umrah-content-items">
           <div className="left">
@@ -433,26 +585,36 @@ const Other = () => {
         <div className="flex umrah-content-items mt-3">
           <div className="left">
             <label htmlFor="name">Rasmi:</label>
-            <input type="file" className="border-none" />
+            <input
+              type="file"
+              className="border-none"
+              onChange={handleFileChange}
+              accept="image/*"
+            />
           </div>
           <div className="left">
             <label htmlFor="name">Rasmi:</label>
             <input
               type="file"
-              placeholder="Information"
               className="border-none"
+              onChange={handleFileChange2}
+              accept="image/*"
             />
           </div>{" "}
           <div>
             <label htmlFor="name">Rasmi:</label>
             <input
               type="file"
-              placeholder="Information"
               className="border-none"
+              onChange={handleFileChange3}
+              accept="image/*"
             />
           </div>
         </div>
-        <button className="absolute right-[80px] bottom-[-90px]">
+        <button
+          className="absolute right-[80px] bottom-[-90px]"
+          onClick={PathPayme}
+        >
           Saqlash
         </button>
       </div>
